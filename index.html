@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+	</head>
+	<body>
+		<div id="app">
+			<div v-for="item in items">
+				
+				<mt-cell :title="item.title" :value="item.text"></mt-cell>
+			</div>
+		</div>
+	</body>
+	<!-- 先引入 Vue -->
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<!-- 引入组件库 -->
+	<script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		new Vue({
+			el: '#app'
+			,data:{
+				items:[
+					{title:"乐哥1",text:"1001块"},
+					{title:"乐哥2",text:"1002块"},
+					{title:"乐哥3",text:"1003块"},
+					{title:"乐哥4",text:"1004块"}
+				]
+			}
+			
+			,created: function() {
+				// axios.post('www.baidu.com', {
+				// 		firstName: 'Fred',
+				// 		lastName: 'Flintstone'
+				// 	})
+				// 	.then(function(response) {
+				// 		console.log(response);
+				// 	})
+				// 	.catch(function(error) {
+				// 		console.log(error);
+				// 	});
+				// 				function getUserAccount() {
+				// 					return axios.get('/user/12345');
+				// 				}
+				// 
+				// 				function getUserPermissions() {
+				// 					return axios.get('/user/12345/permissions');
+				// 				}
+				// 
+				// 				axios.all([getUserAccount(), getUserPermissions()])
+				// 					.then(axios.spread(function(acct, perms) {
+				// 						// 两个请求现在都执行完成
+				// 					}));
+			}
+			// methods: {
+			//   handleClick: function() {
+			//     this.$toast('Hello world!')
+			//   }
+			// }
+		})
+	</script>
+</html>
