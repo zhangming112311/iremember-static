@@ -7,10 +7,14 @@
 	</head>
 	<body>
 		<div id="app">
-			<div v-for="item in items">
-				
-				<mt-cell :title="item.title" :value="item.text"></mt-cell>
-			</div>
+			<mt-search v-model="keyWord" cancel-text="取消" placeholder="搜索" @keyup.enter.native="searchData" >
+					<mt-cell :title="item.name" :value="item.price"></mt-cell>
+					<mt-index-list v-for="item in items">
+					  <mt-index-section :index="item.name" v-for="product in item.products">
+						<mt-cell title="product.price">{{product.name}}</mt-cell>
+					  </mt-index-section>
+					</mt-index-list>
+			</mt-search>
 		</div>
 	</body>
 	<!-- 先引入 Vue -->
@@ -19,18 +23,21 @@
 	<script src="https://unpkg.com/mint-ui/lib/index.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script>
-		new Vue({
+	 var vm = new Vue({
 			el: '#app'
 			,data:{
-				items:[
-					{title:"乐哥1",text:"1001块"},
-					{title:"乐哥2",text:"1002块"},
-					{title:"乐哥3",text:"1003块"},
-					{title:"乐哥4",text:"1004块"}
-				]
+				items:[],
+				keyWord:""
 			}
 			
 			,created: function() {
+				// axios.get('http://182.61.45.76/search?keyWord=哈曼卡顿音响')
+				// 	.then(function (response){
+				// 		vm.items = response.data;
+				// 		console.log(response.data);
+				// 		console.log(vm.items);
+				// 	});
+				
 				// axios.post('www.baidu.com', {
 				// 		firstName: 'Fred',
 				// 		lastName: 'Flintstone'
@@ -53,12 +60,17 @@
 				// 					.then(axios.spread(function(acct, perms) {
 				// 						// 两个请求现在都执行完成
 				// 					}));
+			},
+			methods: {
+			  searchData: function() {
+			    axios.get('http://182.61.45.76/search?keyWord='+vm.keyWord)
+			    	.then(function (response){
+			    		vm.items = response.data;
+			    		console.log(response.data);
+			    		console.log(vm.items);
+			    	});
+			  }
 			}
-			// methods: {
-			//   handleClick: function() {
-			//     this.$toast('Hello world!')
-			//   }
-			// }
 		})
 	</script>
 </html>
