@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<!-- 引入样式 -->
+		<link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
+	</head>
+	<body>
+		<div id="app">
+			<mt-search v-model="keyWord" cancel-text="取消" placeholder="搜索" @keyup.enter.native="searchData" >
+				<!-- <mt-cell :title="item.name" :label="item.name" v-for="product in item.products">
+				  <span>icon 是图片</span>
+				  <img slot="icon" src="./cat.png" width="24" height="24">
+				</mt-cell> -->
+			<mt-index-list>
+			  <mt-index-section :label="item.name" :index="item.name" v-for="item in items" >
+				<mt-cell :title="product.price" v-for="product in item.products">
+				<span>{{product.name}}</span>
+				<img slot="icon"  v-bind:src ='product.img' width="50" height="50">
+				</mt-cell>
+			  </mt-index-section>
+			</mt-index-list>
+			
+			
+
+			</mt-search>
+		
+			
+			
+		</div>
+	</body>
+	<!-- 先引入 Vue -->
+	<script src="https://unpkg.com/vue/dist/vue.js"></script>
+	<!-- 引入组件库 -->
+	<script src="https://unpkg.com/mint-ui/lib/index.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+	 var vm = new Vue({
+			el: '#app'
+			,data:{
+				items:[
+					 //  {
+						// "name": "京东",
+						// "products": [
+						//   {
+						// 	"price": "899.00",
+						// 	"name": "【JBL自营官方旗舰店】纽约现代艺术博物馆收藏品,简约时尚,强劲声效,高保真音质,是音响更是艺术精品,白条6期免息原装正品点击购买"
+						//   },
+						//   {
+						// 	"price": "1398.00",
+						// 	"name": "【跨境商品】宝马奔驰专用音箱，品质之选，简约唯美，LED光环！"
+						//   }
+						// ]
+					 //  },
+					 //  {
+						// "name": "天猫",
+						// "products": [
+						//   {
+						// 	"price": "1699.00",
+						// 	"name": "harman／kardon aura studio 2"
+						//   },
+						//   {
+						// 	"price": "848.00",
+						// 	"name": "harman kardon/哈曼·卡顿 SoundSticks Ⅲ"
+						//   }
+						// ]
+					 //  }
+					],
+				keyWord:""
+			}
+			
+			,created: function() {
+				// axios.get('http://182.61.45.76/search?keyWord=哈曼卡顿音响')
+				// 	.then(function (response){
+				// 		vm.items = response.data;
+				// 		console.log(response.data);
+				// 		console.log(vm.items);
+				// 	});
+				
+				// axios.post('www.baidu.com', {
+				// 		firstName: 'Fred',
+				// 		lastName: 'Flintstone'
+				// 	})
+				// 	.then(function(response) {
+				// 		console.log(response);
+				// 	})
+				// 	.catch(function(error) {
+				// 		console.log(error);
+				// 	});
+				// 				function getUserAccount() {
+				// 					return axios.get('/user/12345');
+				// 				}
+				// 
+				// 				function getUserPermissions() {
+				// 					return axios.get('/user/12345/permissions');
+				// 				}
+				// 
+				// 				axios.all([getUserAccount(), getUserPermissions()])
+				// 					.then(axios.spread(function(acct, perms) {
+				// 						// 两个请求现在都执行完成
+				// 					}));
+			},
+			methods: {
+			  searchData: function() {
+			    axios.get('/search?keyWord='+vm.keyWord)
+			    	.then(function (response){
+			    		vm.items = response.data;
+			    		console.log(response.data);
+			    		console.log(vm.items);
+			    	});
+			  }
+			}
+		})
+	</script>
+</html>

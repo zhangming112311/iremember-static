@@ -1,115 +1,58 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<!-- 引入样式 -->
-		<link rel="stylesheet" href="https://unpkg.com/mint-ui/lib/style.css">
-	</head>
-	<body>
-		<div id="app">
-			<mt-search v-model="keyWord" cancel-text="取消" placeholder="搜索" @keyup.enter.native="searchData" >
-				<!-- <mt-cell :title="item.name" :label="item.name" v-for="product in item.products">
-				  <span>icon 是图片</span>
-				  <img slot="icon" src="./cat.png" width="24" height="24">
-				</mt-cell> -->
-			<mt-index-list>
-			  <mt-index-section :label="item.name" :index="item.name" v-for="item in items" >
-				<mt-cell :title="product.price" v-for="product in item.products">
-				<span>{{product.name}}</span>
-				<img slot="icon" :src="product.img" width="50" height="50">
-				</mt-cell>
-			  </mt-index-section>
-			</mt-index-list>
-			
-			
+<head>
+<meta charset="utf-8">
+<title>Bootstrap模态登录框 - 源码之家</title>
+</head>
 
-			</mt-search>
-		
-			
-			
+<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+
+<body>
+
+<!-- <a style="display:block;width:200px;height:42px;line-height:42px;font-size:18px;text-align:center;margin:40px auto;font-weight:800;" href="#" class="tbox">点击弹出</a> -->
+
+<div class="modal fade" id="myModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+					  <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
+			</div>
+			<div class="modal-body">
+					<h4 class="modal-title" align="center">登录框</h4>
+					<br/>
+					<form class="form-horizontal" role="form">
+						<div class="form-group">
+							<label for="name" class="col-sm-offset-2 col-sm-2 control-label">账号</label>
+							<div class="col-sm-5">
+								<input type="text" class="form-control" id="name" placeholder="请输您的入账号">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="password" class="col-sm-offset-2 col-sm-2 control-label">密码</label>
+							<div class="col-sm-5">
+								<input type="password" class="form-control" id="password" placeholder="请输入您的密码">
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-sm-offset-4 col-sm-5">
+								<button id="submitBtn" type="submit" class="btn btn-default btn-block btn-primary">登录</button>
+							</div>
+						</div>
+						</form>
+			</div>
+			<div class="modal-footer">
+			</div>
 		</div>
-	</body>
-	<!-- 先引入 Vue -->
-	<script src="https://unpkg.com/vue/dist/vue.js"></script>
-	<!-- 引入组件库 -->
-	<script src="https://unpkg.com/mint-ui/lib/index.js"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script>
-	 var vm = new Vue({
-			el: '#app'
-			,data:{
-				items:[
-					 //  {
-						// "name": "京东",
-						// "products": [
-						//   {
-						// 	"price": "899.00",
-						// 	"name": "【JBL自营官方旗舰店】纽约现代艺术博物馆收藏品,简约时尚,强劲声效,高保真音质,是音响更是艺术精品,白条6期免息原装正品点击购买"
-						//   },
-						//   {
-						// 	"price": "1398.00",
-						// 	"name": "【跨境商品】宝马奔驰专用音箱，品质之选，简约唯美，LED光环！"
-						//   }
-						// ]
-					 //  },
-					 //  {
-						// "name": "天猫",
-						// "products": [
-						//   {
-						// 	"price": "1699.00",
-						// 	"name": "harman／kardon aura studio 2"
-						//   },
-						//   {
-						// 	"price": "848.00",
-						// 	"name": "harman kardon/哈曼·卡顿 SoundSticks Ⅲ"
-						//   }
-						// ]
-					 //  }
-					],
-				keyWord:""
-			}
-			
-			,created: function() {
-				// axios.get('http://182.61.45.76/search?keyWord=哈曼卡顿音响')
-				// 	.then(function (response){
-				// 		vm.items = response.data;
-				// 		console.log(response.data);
-				// 		console.log(vm.items);
-				// 	});
-				
-				// axios.post('www.baidu.com', {
-				// 		firstName: 'Fred',
-				// 		lastName: 'Flintstone'
-				// 	})
-				// 	.then(function(response) {
-				// 		console.log(response);
-				// 	})
-				// 	.catch(function(error) {
-				// 		console.log(error);
-				// 	});
-				// 				function getUserAccount() {
-				// 					return axios.get('/user/12345');
-				// 				}
-				// 
-				// 				function getUserPermissions() {
-				// 					return axios.get('/user/12345/permissions');
-				// 				}
-				// 
-				// 				axios.all([getUserAccount(), getUserPermissions()])
-				// 					.then(axios.spread(function(acct, perms) {
-				// 						// 两个请求现在都执行完成
-				// 					}));
-			},
-			methods: {
-			  searchData: function() {
-			    axios.get('/search?keyWord='+vm.keyWord)
-			    	.then(function (response){
-			    		vm.items = response.data;
-			    		console.log(response.data);
-			    		console.log(vm.items);
-			    	});
-			  }
-			}
-		})
-	</script>
+		<!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+$(function(){
+	$('#myModal').modal('show');
+});
+</script>
+</body>
 </html>
